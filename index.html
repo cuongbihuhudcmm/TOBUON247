@@ -408,7 +408,7 @@
         
         .ticker-wrapper { position: absolute; left: 170px; right: 0; height: 100%; overflow: hidden; display: flex; align-items: center; }
         .ticker-move { display: flex; width: max-content; padding-left: 100vw; }
-        .ticker-move.credit-roll { padding-left: 52px; }
+        .ticker-move.credit-roll { padding-left: calc(100% + 24px); }
         .ticker-item { font-size: 19px; color: white; font-weight: 600; padding-right: 100px; display: inline-block; white-space: nowrap; }
         
         .right-section { position: absolute; right: 0; top: 0; height: 100%; display: flex; align-items: stretch; z-index: 5; }
@@ -1769,6 +1769,239 @@ body.tiktok-mode #live-camera-bg {
     100% { transform: scale(1); color: inherit; }
 }
 
+/* TikTok live realism pass: neutral camera frame and native-style comments */
+body.tiktok-mode {
+    --tt-phone-w: min(405px, 29vw);
+    --tt-phone-h: calc(var(--tt-phone-w) * 1.7778);
+}
+body.tiktok-mode #bg-layer {
+    filter: blur(4px) brightness(0.24) saturate(0.72) !important;
+}
+body.tiktok-mode #live-camera-bg {
+    width: calc(var(--tt-phone-w) - 16px) !important;
+    height: calc(var(--tt-phone-h) - 16px) !important;
+    border-radius: 34px !important;
+    filter: saturate(0.96) contrast(1.03) brightness(0.98) !important;
+    box-shadow: 0 28px 82px rgba(0,0,0,.82) !important;
+}
+#tiktok-live-overlay .tt-stage-glow {
+    background:
+        radial-gradient(circle at 50% 48%, rgba(255,255,255,.10), transparent 28%),
+        radial-gradient(circle at 24% 58%, rgba(255,214,92,.12), transparent 30%),
+        radial-gradient(circle at 76% 42%, rgba(176,0,26,.10), transparent 32%),
+        linear-gradient(90deg, rgba(2,6,14,.84), rgba(8,14,28,.42) 34%, rgba(16,9,17,.38) 66%, rgba(2,6,14,.86)) !important;
+}
+#tiktok-live-overlay .tt-stage-glow::before,
+#tiktok-live-overlay .tt-stage-glow::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: min(260px, 18vw);
+    height: min(540px, 70vh);
+    transform: translateY(-50%);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 28px;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.025)),
+        repeating-linear-gradient(180deg, rgba(255,255,255,.055) 0 1px, transparent 1px 46px);
+    box-shadow: 0 24px 80px rgba(0,0,0,.36), inset 0 1px 0 rgba(255,255,255,.08);
+    opacity: .72;
+}
+#tiktok-live-overlay .tt-stage-glow::before {
+    right: calc(50% + var(--tt-phone-w) / 2 + 44px);
+}
+#tiktok-live-overlay .tt-stage-glow::after {
+    left: calc(50% + var(--tt-phone-w) / 2 + 44px);
+}
+#tiktok-live-overlay::before {
+    content: 'LIVE COMMERCE';
+    position: fixed;
+    left: calc(50% - var(--tt-phone-w) / 2 - min(260px, 18vw) - 12px);
+    top: 25%;
+    z-index: 10003;
+    color: rgba(255,255,255,.52);
+    font-family: 'Oswald', sans-serif;
+    font-size: 24px;
+    letter-spacing: .16em;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    pointer-events: none;
+}
+#tiktok-live-overlay::after {
+    content: 'KERA LIVE';
+    position: fixed;
+    right: calc(50% - var(--tt-phone-w) / 2 - min(260px, 18vw) - 34px);
+    bottom: 24%;
+    z-index: 10003;
+    color: rgba(255,214,92,.76);
+    font-family: 'Oswald', sans-serif;
+    font-size: 26px;
+    letter-spacing: .12em;
+    pointer-events: none;
+}
+#tiktok-live-overlay .tt-live-phone {
+    border-width: 8px;
+    border-radius: 42px;
+    outline: 1px solid rgba(255,255,255,.18);
+    outline-offset: 8px;
+    background:
+        radial-gradient(circle at 42% 42%, rgba(255,255,255,.10), transparent 24%),
+        radial-gradient(circle at 56% 76%, rgba(255,214,92,.08), transparent 30%),
+        linear-gradient(145deg, rgba(16,20,28,.26), rgba(5,6,8,.18) 70%);
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.08),
+        0 36px 98px rgba(0,0,0,.78),
+        0 0 0 1px rgba(255,255,255,.09),
+        0 0 42px rgba(255,255,255,.08);
+}
+#tiktok-live-overlay .tt-live-phone::before {
+    width: 116px;
+    height: 24px;
+    top: 8px;
+    border-radius: 0 0 16px 16px;
+}
+#tiktok-live-overlay .tt-live-phone::after {
+    background:
+        linear-gradient(180deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.26) 13%, transparent 31%, transparent 57%, rgba(0,0,0,.28) 78%, rgba(0,0,0,.76) 100%),
+        linear-gradient(108deg, rgba(255,255,255,.055) 0%, rgba(255,255,255,.012) 17%, transparent 30%) !important;
+}
+#tiktok-live-overlay .tt-top {
+    top: 86px;
+}
+#tiktok-live-overlay .tt-host,
+#tiktok-live-overlay .tt-rank,
+#tiktok-live-overlay .tt-action i,
+#tiktok-live-overlay .tt-shop,
+#tiktok-live-overlay .tt-input,
+#tiktok-live-overlay .tt-pinned-product {
+    background: rgba(0,0,0,.36);
+    backdrop-filter: blur(6px);
+}
+#tiktok-live-overlay .tt-avatar {
+    border-color: rgba(255,255,255,.86);
+}
+#tiktok-live-overlay .tt-follow,
+#tiktok-live-overlay .tt-live-badge,
+#tiktok-live-overlay .tt-avatar-wrap::after {
+    background: #fe2c55;
+}
+#tiktok-live-overlay .tt-actions {
+    right: 12px;
+    bottom: 146px;
+    gap: 14px;
+}
+#tiktok-live-overlay .tt-live-badge,
+#tiktok-live-overlay .tt-rank {
+    top: 152px;
+}
+#tiktok-live-overlay .tt-live-badge {
+    left: 20px;
+    padding: 8px 13px;
+    box-shadow: 0 10px 22px rgba(254,44,85,.24);
+}
+#tiktok-live-overlay .tt-rank {
+    right: 18px;
+}
+#tiktok-live-overlay .tt-action i {
+    width: 40px;
+    height: 40px;
+    font-size: 21px;
+}
+#tiktok-live-overlay .tt-comments {
+    left: 15px;
+    right: 72px;
+    bottom: 116px;
+    gap: 6px !important;
+    max-height: 178px !important;
+    mask-image: linear-gradient(to top, black 78%, transparent 100%);
+}
+#tiktok-live-overlay .tt-cmt {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    padding: 2px 0 2px 30px;
+    border-radius: 0;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none;
+    backdrop-filter: none;
+    color: #fff;
+    font-size: 12.8px;
+    line-height: 1.28;
+    font-weight: 650;
+    letter-spacing: 0;
+    text-shadow: 0 1px 2px rgba(0,0,0,.95), 0 0 8px rgba(0,0,0,.72);
+    position: relative;
+}
+#tiktok-live-overlay .tt-cmt::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background:
+        linear-gradient(135deg, rgba(255,255,255,.88), rgba(210,215,224,.78)),
+        #d7dce5;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.35), 0 2px 7px rgba(0,0,0,.35);
+}
+#tiktok-live-overlay .tt-cmt:nth-child(3)::before,
+#tiktok-live-overlay .tt-cmt:nth-child(6)::before {
+    background: linear-gradient(135deg, #25f4ee, #1976d2);
+}
+#tiktok-live-overlay .tt-cmt:nth-child(2)::before,
+#tiktok-live-overlay .tt-cmt:nth-child(5)::before {
+    background: linear-gradient(135deg, #ffd166, #ef476f);
+}
+#tiktok-live-overlay .tt-user {
+    color: rgba(255,255,255,.72);
+    font-weight: 800;
+    margin-right: 5px;
+}
+#tiktok-live-overlay .tt-cmt.flash-buy::after,
+#tiktok-live-overlay .tt-cmt.question::after,
+#tiktok-live-overlay .tt-cmt.warning::after {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 5px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.16);
+    color: rgba(255,255,255,.88);
+    font-size: 10px;
+    font-weight: 800;
+    vertical-align: 1px;
+}
+#tiktok-live-overlay .tt-cmt.flash-buy::after { content: 'đã mua'; }
+#tiktok-live-overlay .tt-cmt.question::after { content: 'hỏi'; }
+#tiktok-live-overlay .tt-cmt.warning::after { content: 'kiểm chứng'; }
+#tiktok-live-overlay .tt-pinned-product {
+    left: 15px;
+    right: 72px;
+    bottom: 67px;
+    border-color: rgba(255,255,255,.10);
+}
+#tiktok-live-overlay .tt-floating-hearts span {
+    color: rgba(255,255,255,.92);
+}
+#tiktok-live-overlay .tt-floating-hearts span:nth-child(2),
+#tiktok-live-overlay .tt-floating-hearts span:nth-child(4) {
+    color: #fe2c55;
+}
+#tiktok-live-overlay .tt-side-label,
+#tiktok-live-overlay .tt-hotkey-note {
+    display: none !important;
+}
+body.tiktok-mode #live-camera-bg {
+    filter: none !important;
+}
+#tiktok-live-overlay .tt-live-phone {
+    background: transparent !important;
+}
+#tiktok-live-overlay .tt-live-phone::after {
+    background: none !important;
+}
+
 /* OUTRO FINAL: premium broadcast sign-off */
 .outro-slide .outro-final-panel {
     min-height: 0 !important;
@@ -2593,7 +2826,7 @@ header .live-indicator {
         const briefNewsTickerText = "TIN VẮN: Bên cạnh tội danh Vi phạm quy định về kế toán gây hậu quả nghiêm trọng, Cục C01 Bộ Công an đang tập trung làm rõ nghi vấn sản xuất, buôn bán hàng giả của hệ thống Hoàng Hường. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TIN VẮN: Kết quả quan trắc chất lượng môi trường những năm qua cho thấy, tình trạng ô nhiễm môi trường không khí tại các CCN làng nghề tái chế như Văn Môn, Phong Khê, Ðại Bái, Châu Khê… trên địa bàn tỉnh Bắc Ninh rất nghiêm trọng. Nước thải tại các CCN hầu hết đều không được thu gom và xử lý dẫn đến nhiều chỉ tiêu phân tích vượt quy chuẩn Việt Nam nhiều lần &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TIN VẮN: Hàng loạt 'tổng kho' chốt đơn tiền tỷ bị triệt phá do tuồn hàng giả, bóp méo niềm tin thương mại điện tử &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TIN VẮN: EU AI Act có hiệu lực 01/08/2024; nghĩa vụ về hiểu biết AI và lệnh cấm một số thực hành AI bắt đầu áp dụng từ 02/02/2025";
         const complimentTickerText = "FACT: Nếu NEU có visual ranking, cô Loan vẫn đang giữ vị trí top đầu";
         const newsTickerText = `${knowledgeTickerText} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;◆&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${briefNewsTickerText} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;◆&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${complimentTickerText}`;
-        const creditsTickerText = "ĐỘI NGŨ THỰC HIỆN TỔ BUÔN 24/7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TỔNG ĐẠO DIỄN: Nguyễn Quốc Cường &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KỸ THUẬT VIÊN HÌNH ẢNH: Vũ Hoàng Việt &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KỸ THUẬT VIÊN HÌNH ẢNH: Bùi Trần Tuấn Hưng &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CHUYÊN GIA KINH TẾ: Đặng Bùi Duy Hiển &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BIÊN TẬP VIÊN: Bùi Trần Hải Đăng &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRƯỞNG BAN HỌC THUẬT: Nguyễn Thị Kim Anh &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DIỄN VIÊN: Lê Quang Nghĩa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DIỄN VIÊN: Hồ Lan Nhi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DIỄN VIÊN: Nguyễn Anh Thư &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DIỄN VIÊN: Lê Đào Nguyên Huy &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  GIẢNG VIÊN QUẢN TRỊ KINH DOANH 1 XINH GÁI NHẤT HỆ MẶT TRỜI: Cô Lưu Thị Loan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ";
+        const creditsTickerText = "ĐỘI NGŨ THỰC HIỆN TỔ BUÔN 24/7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TỔNG ĐẠO DIỄN: Nguyễn Quốc Cường &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KỸ THUẬT VIÊN HÌNH ẢNH: Vũ Hoàng Việt &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KỸ THUẬT VIÊN HÌNH ẢNH: Bùi Trần Tuấn Hưng &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CHUYÊN GIA KINH TẾ: Đặng Bùi Duy Hiến &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BIÊN TẬP VIÊN: Bùi Trần Hải Đăng &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRƯỞNG BAN HỌC THUẬT: Nguyễn Thị Kim Anh &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DIỄN VIÊN: Lê Quang Nghĩa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DIỄN VIÊN: Hồ Lan Nhi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DIỄN VIÊN: Nguyễn Anh Thư &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DIỄN VIÊN: Lê Đào Nguyên Huy &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  GIẢNG VIÊN QUẢN TRỊ KINH DOANH 1 XINH GÁI NHẤT HỆ MẶT TRỜI: Cô Lê Thị Loan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ";
         
         const formatTicker = (text) => {
             let result = '';
@@ -2604,8 +2837,8 @@ header .live-indicator {
         };
 
         const profiles = {
-            'Digit1': { title: 'NGƯỜI DẪN', name: 'NGUYỄN THỊ KIM ANH' },
-            'Digit2': { title: 'CHUYÊN GIA KINH TẾ', name: 'ĐẶNG BÙI DUY HIỂN' },
+            'Digit1': { title: 'NGƯỜI DÂN', name: 'NGUYỄN THỊ KIM ANH' },
+            'Digit2': { title: 'CHUYÊN GIA KINH TẾ', name: 'ĐẶNG BÙI DUY HIẾN' },
             'Digit3': { title: 'TRƯỞNG BAN HỌC THUẬT', name: 'NGUYỄN THỊ KIM ANH' },
             'Digit4': { title: 'DIỄN VIÊN', name: 'LÊ QUANG NGHĨA' },
             'Digit5': { title: 'DIỄN VIÊN', name: 'HỒ LAN NHI' },
@@ -2615,7 +2848,7 @@ header .live-indicator {
             'Digit9': { title: 'KỸ THUẬT VIÊN HÌNH ẢNH', name: 'VŨ HOÀNG VIỆT' },
             'KeyQ': { title: 'TỔNG ĐẠO DIỄN', name: 'NGUYỄN QUỐC CƯỜNG' },
             'KeyW': { title: 'KỸ THUẬT VIÊN HÌNH ẢNH', name: 'BÙI TRẦN TUẤN HƯNG' },
-            'KeyE': { title: 'GIẢNG VIÊN QUẢN TRỊ KINH DOANH 1 XINH GÁI NHẤT HỆ MẶT TRỜI', name: 'CÔ LƯU THỊ LOAN' }
+            'KeyE': { title: 'GIẢNG VIÊN QUẢN TRỊ KINH DOANH 1 XINH GÁI NHẤT HỆ MẶT TRỜI', name: 'CÔ LÊ THỊ LOAN' }
         };
 
         // Headlines tạm thời giữ nguyên theo code gốc của bạn
@@ -2882,10 +3115,10 @@ header .live-indicator {
             node.innerHTML = `<span class="tt-user">${item.u}:</span> ${item.m}`;
             box.appendChild(node);
 
-            while (box.children.length > 7) {
+            while (box.children.length > 6) {
                 const first = box.firstElementChild;
                 first.classList.add('fading');
-                setTimeout(() => first && first.remove(), 220);
+                setTimeout(() => first && first.remove(), 280);
                 break;
             }
 
@@ -2926,14 +3159,14 @@ header .live-indicator {
                 {u:'@khachhang_ne', m:'Shop cho em xin bảng thành phần ạ', t:'question'},
                 {u:'@user_1928', m:'Nhanh tay chốt đơn anh em ơi!', t:'flash-buy'},
                 {u:'@checkvar', m:'Một viên bằng một bó rau là sao ạ?', t:'warning'}
-            ].forEach((c, i) => setTimeout(() => pushTikTokComment(c), i * 250));
+            ].forEach((c, i) => setTimeout(() => pushTikTokComment(c), i * 360));
 
             ttCommentTimer = setInterval(() => {
                 pushTikTokComment();
-                if (Math.random() > 0.55) setTimeout(() => pushTikTokComment(), 420);
-            }, 1350);
+                if (Math.random() > 0.68) setTimeout(() => pushTikTokComment(), 720);
+            }, 1750);
 
-            ttViewTimer = setInterval(updateTikTokMetrics, 1900);
+            ttViewTimer = setInterval(updateTikTokMetrics, 2400);
         }
 
         function stopTikTokLiveComments() {
