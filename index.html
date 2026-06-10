@@ -3034,6 +3034,41 @@ header .live-indicator {
             else document.exitFullscreen(); 
         });
 
+        let mentimeterRefreshTimeout = null;
+        let lastMentimeterRefreshAt = 0;
+
+        function refreshMentimeterFrame(force = false) {
+            const activeSlide = slides[currentSlide];
+            if (!activeSlide) return false;
+
+            const frame = activeSlide.querySelector('.mentimeter-frame');
+            if (!frame) return false;
+
+            const now = Date.now();
+            if (!force && now - lastMentimeterRefreshAt < 2500) return true;
+            if (!force) lastMentimeterRefreshAt = now;
+
+            const src = frame.dataset.mentimeterSrc || frame.getAttribute('src');
+            if (!src) return false;
+            frame.dataset.mentimeterSrc = src;
+
+            frame.setAttribute('src', 'about:blank');
+            window.setTimeout(() => {
+                if (slides[currentSlide] === activeSlide) {
+                    frame.setAttribute('src', src);
+                }
+            }, 120);
+            return true;
+        }
+
+        function scheduleMentimeterRefresh() {
+            if (mentimeterRefreshTimeout) clearTimeout(mentimeterRefreshTimeout);
+            mentimeterRefreshTimeout = setTimeout(() => {
+                refreshMentimeterFrame(false);
+                mentimeterRefreshTimeout = null;
+            }, 180);
+        }
+
         function handleSlideChange(direction) {
             if (direction === 'next' && currentSlide >= slides.length - 1) return;
             if (direction === 'prev' && currentSlide <= 0) return;
@@ -3053,6 +3088,7 @@ header .live-indicator {
 
                 slides.forEach(s => s.classList.remove('active'));
                 slides[currentSlide].classList.add('active');
+                scheduleMentimeterRefresh();
                 
                 if (dynamicHeadline) { dynamicHeadline.innerText = headlines[currentSlide] || "Talkshow Tổ Buôn 24/7"; }
                 
@@ -3234,6 +3270,13 @@ header .live-indicator {
             if (mainLayout.style.display !== 'flex') return;
 
             if (isTransitioning) return;
+
+            if (e.code === 'KeyM') {
+                if (refreshMentimeterFrame(true)) {
+                    e.preventDefault();
+                    return;
+                }
+            }
 
             if (e.code === 'KeyF') {
                 if (isConfettiRunning) { isConfettiRunning = false; } else {
