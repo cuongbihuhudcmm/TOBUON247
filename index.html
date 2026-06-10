@@ -2467,6 +2467,81 @@ header .live-indicator {
     0% { opacity: 0; width: 0; transform: scaleX(0.7); }
     100% { opacity: 1; width: min(450px, 38vw); transform: scaleX(1); }
 }
+
+/* ===== STABILITY PASS COPY: viewport-safe broadcast layout ===== */
+html,
+body,
+#main-layout {
+    overflow: hidden;
+}
+#slide-container {
+    padding: 82px 48px 104px 48px;
+}
+.slide {
+    max-height: calc(100vh - 186px);
+}
+.tb-slide,
+.tb-panel {
+    max-height: calc(100vh - 186px);
+}
+.tb-panel {
+    padding-top: clamp(22px, 2.5vw, 38px) !important;
+    padding-bottom: clamp(22px, 2.5vw, 38px) !important;
+}
+.mentimeter-shell {
+    min-height: 0 !important;
+}
+.mentimeter-frame {
+    height: min(430px, 46vh) !important;
+}
+.slide:nth-child(3) {
+    max-width: 1760px;
+}
+.slide:nth-child(3) .tb-panel {
+    width: min(100%, 1720px);
+    max-height: calc(100vh - 154px);
+    padding: clamp(24px, 2vw, 34px) clamp(34px, 3vw, 54px) !important;
+}
+.slide:nth-child(3) .tb-kicker {
+    margin-bottom: 6px;
+}
+.slide:nth-child(3) .tb-title {
+    font-size: clamp(50px, 3.65vw, 70px) !important;
+    line-height: 0.98 !important;
+}
+.slide:nth-child(3) .tb-grid {
+    grid-template-columns: minmax(0, 2.9fr) minmax(250px, 0.68fr) !important;
+    gap: clamp(18px, 1.35vw, 26px) !important;
+    margin-top: clamp(16px, 1.6vw, 24px) !important;
+}
+.slide:nth-child(3) .mentimeter-shell {
+    min-height: min(610px, 59vh) !important;
+}
+.slide:nth-child(3) .mentimeter-frame {
+    height: min(560px, 55vh) !important;
+}
+.slide:nth-child(3) .mentimeter-note {
+    margin-top: 8px;
+    font-size: 13px;
+}
+.slide:nth-child(3) .mentimeter-shell:last-child {
+    padding: clamp(16px, 1.6vw, 24px) clamp(14px, 1.4vw, 20px) !important;
+}
+.slide:nth-child(3) .mentimeter-shell:last-child img {
+    width: min(100%, 300px) !important;
+}
+.tb-card,
+.option-card,
+.invoice-person {
+    min-height: 0;
+}
+#main-layout:has(.outro-slide.active) #slide-container {
+    padding: 44px 48px 90px 48px;
+}
+#main-layout:has(.outro-slide.active) .minimal-outro {
+    max-height: calc(100vh - 140px);
+}
+
 </style>
 </head>
 <body>
@@ -2625,7 +2700,7 @@ header .live-indicator {
 <div class="tb-title" style="font-size: 46px !important;">NẾU LÀ CEO, <span class="gold">QUÝ VỊ CHỌN GÌ?</span></div>
 <div class="tb-grid" style="display:grid; grid-template-columns:minmax(0, 2.15fr) 0.85fr; gap:28px; align-items:stretch; margin-top:26px;">
 <div class="mentimeter-shell" style="width:100%; min-height:500px; padding:12px; display:flex; flex-direction:column;">
-<iframe allowfullscreen="" class="mentimeter-frame" src="https://www.mentimeter.com/app/presentation/albojm33cem73vk5bokcrdcpwbrz81hk/embed" style="width:100%; height:500px; border:0; border-radius:14px; background:#ffffff; flex:1;">
+<iframe allowfullscreen="" class="mentimeter-frame" data-mentimeter-src="https://www.mentimeter.com/app/presentation/albojm33cem73vk5bokcrdcpwbrz81hk/embed" src="about:blank" style="width:100%; height:500px; border:0; border-radius:14px; background:#ffffff; flex:1;">
 </iframe>
 <div class="mentimeter-note" style="text-align:center;">Hiển thị bảng tổng quan kết quả vote trực tiếp từ Mentimeter</div>
 </div>
@@ -3264,6 +3339,13 @@ header .live-indicator {
             ttViewTimer = null;
         }
 
+        function disableTikTokMode() {
+            const tiktokOverlay = document.getElementById('tiktok-live-overlay');
+            document.body.classList.remove('tiktok-mode');
+            if (tiktokOverlay) tiktokOverlay.classList.remove('show');
+            stopTikTokLiveComments();
+        }
+
 
         document.addEventListener('keydown', (e) => {
             if (e.code === 'KeyS' && introScreen.style.display !== 'none' && introVideo.style.display === 'block') { introVideo.currentTime = introVideo.duration; return; }
@@ -3328,12 +3410,18 @@ header .live-indicator {
 
             if (e.code === 'KeyL') { 
                 if (isTransitioning) return;
+                const wasTikTokMode = document.body.classList.contains('tiktok-mode');
                 isTransitioning = true;
                 stingerElement.classList.add('active');
 
                 setTimeout(() => {
+                    disableTikTokMode();
                     document.body.classList.remove('pip-mode'); 
-                    document.body.classList.toggle('live-mode'); 
+                    if (wasTikTokMode) {
+                        document.body.classList.add('live-mode');
+                    } else {
+                        document.body.classList.toggle('live-mode');
+                    }
                     const camTag = document.getElementById('camera-name-tag');
                     if (currentProfile !== null) { 
                         if(camTag) camTag.classList.remove('show'); 
@@ -3351,6 +3439,7 @@ header .live-indicator {
             }
             
             if (e.code === 'KeyP') { 
+                disableTikTokMode();
                 document.body.classList.remove('live-mode'); document.body.classList.toggle('pip-mode'); 
                 const isPip = document.body.classList.contains('pip-mode');
                 const isVtr = document.body.classList.contains('vtr-active');
