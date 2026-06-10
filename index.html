@@ -1771,7 +1771,7 @@ body.tiktok-mode #live-camera-bg {
 
 /* TikTok live realism pass: neutral camera frame and native-style comments */
 body.tiktok-mode {
-    --tt-phone-w: min(405px, 29vw);
+    --tt-phone-w: min(56.25vh, 40vw);
     --tt-phone-h: calc(var(--tt-phone-w) * 1.7778);
 }
 body.tiktok-mode #bg-layer {
@@ -1994,6 +1994,7 @@ body.tiktok-mode #live-camera-bg {
 }
 body.tiktok-mode #live-camera-bg {
     filter: none !important;
+    transition: none !important;
 }
 #tiktok-live-overlay .tt-live-phone {
     background: transparent !important;
@@ -2414,6 +2415,57 @@ header .live-indicator {
 @keyframes outroLineIn {
     0% { opacity: 0; width: 0; transform: scaleX(0.7); }
     100% { opacity: 1; width: min(360px, 34vw); transform: scaleX(1); }
+}
+
+/* Outro refinement: roomier type and a cleaner modern broadcast palette */
+.minimal-outro::before {
+    inset: 4% 6%;
+    background:
+        radial-gradient(circle at 50% 38%, rgba(255,255,255,0.105), transparent 35%),
+        radial-gradient(circle at 34% 58%, rgba(37,244,238,0.075), transparent 40%),
+        radial-gradient(circle at 72% 44%, rgba(176,0,26,0.18), transparent 46%) !important;
+    filter: blur(18px);
+}
+.minimal-outro-logo {
+    background: rgba(248,250,252,0.97);
+    box-shadow: 0 16px 38px rgba(0,0,0,0.32), inset 0 1px 0 rgba(255,255,255,0.86);
+}
+.minimal-outro h1 {
+    color: transparent !important;
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(180deg, #ffffff 0%, #f2f6fb 42%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-size: clamp(56px, 5.85vw, 88px) !important;
+    line-height: 1.12 !important;
+    letter-spacing: 0.115em !important;
+    word-spacing: 0.18em;
+    text-shadow: 0 18px 44px rgba(0,0,0,0.78), 0 0 34px rgba(248,250,252,0.12) !important;
+}
+.minimal-outro-divider {
+    height: 2px;
+    margin: 34px auto 30px;
+    background: linear-gradient(90deg, transparent, #25F4EE 10%, #f8fafc 50%, #b0001a 90%, transparent);
+    box-shadow: 0 0 24px rgba(37,244,238,0.28), 0 0 20px rgba(176,0,26,0.20);
+}
+.minimal-outro p {
+    color: #d7dde8;
+    font-size: clamp(18px, 1.55vw, 23px);
+    letter-spacing: 0.18em;
+    word-spacing: 0.16em;
+    text-shadow: 0 10px 28px rgba(0,0,0,0.68);
+}
+.minimal-outro-note {
+    color: rgba(215,221,232,0.50);
+    letter-spacing: 0.20em;
+}
+@keyframes outroTitleIn {
+    0% { opacity: 0; transform: translateY(18px); filter: blur(10px); letter-spacing: 0.20em; }
+    100% { opacity: 1; transform: translateY(0); filter: blur(0); letter-spacing: 0.115em; }
+}
+@keyframes outroLineIn {
+    0% { opacity: 0; width: 0; transform: scaleX(0.7); }
+    100% { opacity: 1; width: min(450px, 38vw); transform: scaleX(1); }
 }
 </style>
 </head>
