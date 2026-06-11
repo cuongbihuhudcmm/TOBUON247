@@ -3385,6 +3385,208 @@ body,
 .case-ignite-slide .case-question-stack {
     max-width: 720px;
 }
+
+/* ===== TASTE MOTION PASS: BROADCAST SLIDE ANIMATION ===== */
+@keyframes tbSlideIn {
+    0% { opacity: 0; transform: translateY(18px) scale(.992); filter: blur(6px); }
+    100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+@keyframes tbPanelReveal {
+    0% { opacity: 0; transform: translateY(22px) scale(.985); box-shadow: 0 0 0 rgba(0,0,0,0); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes tbKickerSweep {
+    0% { opacity: 0; transform: translateX(-22px); letter-spacing: .34em; }
+    100% { opacity: 1; transform: translateX(0); }
+}
+@keyframes tbTitleRise {
+    0% { opacity: 0; transform: translateY(20px); clip-path: inset(0 0 100% 0); }
+    100% { opacity: 1; transform: translateY(0); clip-path: inset(0 0 0 0); }
+}
+@keyframes tbItemPop {
+    0% { opacity: 0; transform: translateY(18px) scale(.965); filter: blur(4px); }
+    100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+@keyframes tbLineDraw {
+    0% { transform: scaleX(0); opacity: 0; }
+    100% { transform: scaleX(1); opacity: 1; }
+}
+@keyframes tbGlowPulseSoft {
+    0%, 100% { box-shadow: 0 0 0 rgba(255,215,0,0); }
+    45% { box-shadow: 0 0 34px rgba(255,215,0,.18); }
+}
+@keyframes tbQrSettle {
+    0% { opacity: 0; transform: translateY(18px) scale(.94); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.slide.active {
+    animation: tbSlideIn .52s cubic-bezier(.2,.76,.18,1) both;
+}
+.slide.active .tb-panel,
+.slide.active .glass-panel,
+.slide.active .minimal-outro {
+    animation: tbPanelReveal .62s cubic-bezier(.16,.82,.2,1) both;
+}
+.slide.active .tb-kicker {
+    animation: tbKickerSweep .48s cubic-bezier(.16,.82,.2,1) .1s both;
+}
+.slide.active .tb-title,
+.slide.active .case-mega-title,
+.slide.active .outro-main {
+    animation: tbTitleRise .62s cubic-bezier(.16,.82,.2,1) .16s both;
+    will-change: transform, opacity, clip-path;
+}
+.slide.active .gold {
+    animation: tbGlowPulseSoft 1.7s ease-out .34s 1 both;
+}
+.slide.active .tb-card,
+.slide.active .case-file-card,
+.slide.active .case-ai-card,
+.slide.active .ceo-option,
+.slide.active .ring-card,
+.slide.active .invoice-person,
+.slide.active .final-item,
+.slide.active .case-side,
+.slide.active .pressure-node,
+.slide.active .mentimeter-shell,
+.slide.active .stake-node,
+.slide.active .pyr-row,
+.slide.active .bill {
+    opacity: 0;
+    animation: tbItemPop .56s cubic-bezier(.17,.84,.21,1) both;
+}
+.slide.active .tb-card:nth-child(1),
+.slide.active .case-file-card:nth-child(1),
+.slide.active .ceo-option:nth-child(1),
+.slide.active .ring-card:nth-child(1),
+.slide.active .invoice-person:nth-child(1),
+.slide.active .final-item:nth-child(1),
+.slide.active .case-side:nth-child(1),
+.slide.active .pressure-node:nth-child(1),
+.slide.active .mentimeter-shell:nth-child(1),
+.slide.active .stake-node:nth-child(1),
+.slide.active .pyr-row:nth-child(1) { animation-delay: .24s; }
+.slide.active .tb-card:nth-child(2),
+.slide.active .case-file-card:nth-child(2),
+.slide.active .ceo-option:nth-child(2),
+.slide.active .ring-card:nth-child(2),
+.slide.active .invoice-person:nth-child(2),
+.slide.active .final-item:nth-child(2),
+.slide.active .case-side:nth-child(3),
+.slide.active .pressure-node:nth-child(2),
+.slide.active .mentimeter-shell:nth-child(2),
+.slide.active .stake-node:nth-child(2),
+.slide.active .pyr-row:nth-child(2) { animation-delay: .34s; }
+.slide.active .tb-card:nth-child(3),
+.slide.active .case-file-card:nth-child(3),
+.slide.active .ceo-option:nth-child(3),
+.slide.active .ring-card:nth-child(3),
+.slide.active .invoice-person:nth-child(3),
+.slide.active .final-item:nth-child(3),
+.slide.active .pressure-node:nth-child(3),
+.slide.active .stake-node:nth-child(3),
+.slide.active .pyr-row:nth-child(3) { animation-delay: .44s; }
+.slide.active .tb-card:nth-child(4),
+.slide.active .case-file-card:nth-child(4),
+.slide.active .ring-card:nth-child(4),
+.slide.active .final-item:nth-child(4),
+.slide.active .pressure-node:nth-child(4),
+.slide.active .stake-node:nth-child(4),
+.slide.active .pyr-row:nth-child(4) { animation-delay: .54s; }
+.slide.active .case-warning-band,
+.slide.active .case-ai-arrow,
+.slide.active .option-letter,
+.slide.active .case-qr-title,
+.slide.active .mentimeter-note,
+.slide.active .case-bottom-line,
+.slide.active .case-footnote,
+.slide.active .case-read-note,
+.slide.active .case-vote-prompt,
+.slide.active .outro-sub,
+.slide.active .outro-line,
+.slide.active .outro-year {
+    opacity: 0;
+    animation: tbItemPop .52s cubic-bezier(.17,.84,.21,1) .28s both;
+}
+.slide.active .case-warning-band,
+.slide.active .case-ai-arrow {
+    animation-name: tbItemPop, tbGlowPulseSoft;
+    animation-duration: .52s, 1.8s;
+    animation-delay: .18s, .5s;
+    animation-fill-mode: both, both;
+}
+.slide.active .case-question-stack strong {
+    opacity: 0;
+    animation: tbItemPop .5s cubic-bezier(.17,.84,.21,1) both;
+}
+.slide.active .case-question-stack strong:nth-child(1) { animation-delay: .42s; }
+.slide.active .case-question-stack strong:nth-child(2) { animation-delay: .52s; }
+.slide.active .case-question-stack strong:nth-child(3) { animation-delay: .62s; }
+.slide.active .case-ai-card li,
+.slide.active .ceo-option p,
+.slide.active .case-file-card p,
+.slide.active .pressure-node span {
+    opacity: 0;
+    animation: tbItemPop .45s cubic-bezier(.17,.84,.21,1) .56s both;
+}
+.slide.active .case-ai-card li:nth-child(2),
+.slide.active .ceo-option p:nth-of-type(2) { animation-delay: .66s; }
+.slide.active .pressure-map::before,
+.slide.active .pressure-map::after,
+.slide.active .outro-line {
+    transform-origin: center;
+    animation: tbLineDraw .68s cubic-bezier(.16,.82,.2,1) .42s both;
+}
+.slide.active .case-qr-shell img {
+    animation: tbQrSettle .62s cubic-bezier(.16,.82,.2,1) .36s both;
+}
+.slide.active iframe.mentimeter-frame {
+    animation: tbItemPop .56s cubic-bezier(.17,.84,.21,1) .28s both;
+}
+.slide.active.outro-slide .minimal-outro-logo {
+    animation: tbItemPop .58s cubic-bezier(.17,.84,.21,1) .12s both;
+}
+@media (prefers-reduced-motion: reduce) {
+    .slide.active,
+    .slide.active *,
+    .slide.active *::before,
+    .slide.active *::after {
+        animation-duration: .001ms !important;
+        animation-delay: 0s !important;
+        transition-duration: .001ms !important;
+    }
+}
+
+/* ===== TASTE MOTION PRESSURE LINE FIX ===== */
+@keyframes tbPressureLineA {
+    0% { transform: rotate(18deg) scaleX(0); opacity: 0; }
+    100% { transform: rotate(18deg) scaleX(1); opacity: 1; }
+}
+@keyframes tbPressureLineB {
+    0% { transform: rotate(-18deg) scaleX(0); opacity: 0; }
+    100% { transform: rotate(-18deg) scaleX(1); opacity: 1; }
+}
+.slide.active .pressure-map::before {
+    transform-origin: center;
+    animation: tbPressureLineA .68s cubic-bezier(.16,.82,.2,1) .42s both;
+}
+.slide.active .pressure-map::after {
+    transform-origin: center;
+    animation: tbPressureLineB .68s cubic-bezier(.16,.82,.2,1) .42s both;
+}
+
+/* ===== TASTE MOTION POSITIONED NODE FIX ===== */
+@keyframes tbPressureCenterPop {
+    0% { opacity: 0; transform: translate(-50%, -42%) scale(.965); filter: blur(4px); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: blur(0); }
+}
+.slide.active .pressure-node.center {
+    animation-name: tbPressureCenterPop !important;
+    animation-duration: .56s !important;
+    animation-timing-function: cubic-bezier(.17,.84,.21,1) !important;
+    animation-fill-mode: both !important;
+    animation-delay: .38s !important;
+}
 </style>
 </head>
 <body>
@@ -4395,6 +4597,9 @@ body,
     </script>
 </body>
 </html>
+
+
+
 
 
 
