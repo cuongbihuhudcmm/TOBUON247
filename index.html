@@ -3590,7 +3590,6 @@ body,
 
 /* ===== PROJECTOR SAFE BACKGROUND: HIGH CONTRAST CLASSROOM DEFAULT ===== */
 #bg-layer {
-    opacity: 1 !important;
     background:
         linear-gradient(115deg, rgba(18, 31, 52, .96) 0%, rgba(20, 33, 55, .94) 44%, rgba(48, 13, 26, .88) 100%),
         linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px),
@@ -3649,6 +3648,21 @@ body.projector-mode-1 #bg-layer,
 body.projector-mode-2 #bg-layer,
 body.projector-mode-3 #bg-layer {
     filter: saturate(1.12) contrast(1.12) brightness(1.12) !important;
+}
+
+/* ===== LIVE CAMERA MUST NOT BE COVERED BY PROJECTOR BACKGROUND ===== */
+body.live-mode #bg-layer {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: none !important;
+}
+body.live-mode #bg-layer::before,
+body.live-mode #bg-layer::after {
+    display: none !important;
+}
+body.tiktok-mode #bg-layer {
+    opacity: 1 !important;
+    transition: opacity .25s ease, filter .5s ease !important;
 }
 </style>
 </head>
@@ -4660,6 +4674,11 @@ body.projector-mode-3 #bg-layer {
     </script>
 </body>
 </html>
+
+
+
+
+
 
 
 
