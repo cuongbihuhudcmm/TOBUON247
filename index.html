@@ -2542,6 +2542,117 @@ body,
     max-height: calc(100vh - 140px);
 }
 
+/* ===== NAME TAG SAFE SPACING: keep titles away from frame edges ===== */
+.name-tag-box {
+    justify-content: center !important;
+    gap: 3px;
+    padding: 7px 36px 8px 36px !important;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.nt-name {
+    font-size: 23px !important;
+    line-height: 1.04 !important;
+    letter-spacing: 1px;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.nt-title {
+    font-size: 12px !important;
+    line-height: 1.15 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.cam-nt-info-box {
+    justify-content: center !important;
+    gap: 2px;
+    padding: 4px 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+#cam-nt-name,
+#cam-nt-title {
+    box-sizing: border-box;
+    min-height: 0;
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+    line-height: 1.1 !important;
+}
+#cam-nt-name {
+    height: 31px !important;
+    font-size: 18px !important;
+    align-items: center;
+}
+#cam-nt-title {
+    height: 19px !important;
+    font-size: 10px !important;
+    align-items: center;
+}
+
+/* ===== PRE-SHOW SIMPLE BRAND + BLANK FIRST SLIDE ===== */
+.prestart-modern-logo {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 28px 18px 18px;
+    background: rgba(248,250,252,0.98);
+    border-left: 7px solid #c9001f;
+    box-shadow: 0 28px 80px rgba(0,0,0,0.48), inset 0 0 0 1px rgba(255,255,255,0.55);
+}
+.prestart-logo-mark {
+    width: 72px;
+    height: 72px;
+    display: grid;
+    place-items: center;
+    background: #c9001f;
+    color: #ffffff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    line-height: 1;
+}
+.prestart-logo-text {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    color: #121826;
+    font-family: 'Oswald', sans-serif;
+    font-size: 54px;
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.prestart-logo-text span {
+    color: #c9001f;
+}
+.prestart-modern-logo .main-logo-img {
+    display: none !important;
+}
+.blank-bg-slide {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: none !important;
+    pointer-events: none;
+}
+.blank-bg-slide.active {
+    display: block;
+}
+#main-layout:has(.blank-bg-slide.active) #slide-container {
+    opacity: 0;
+    pointer-events: none;
+}
+
 </style>
 </head>
 <body>
@@ -2616,9 +2727,10 @@ body,
 
 <div id="pre-start-screen">
 <div class="pre-start-container">
-<div class="logo-container" style="align-items: center; margin-bottom: 50px; transform: scale(1.8);">
-<div class="logo-subtitle" style="letter-spacing: 12px; margin-bottom: 8px;">KHI LỢI NHUẬN LÊN SÓNG</div>
-<div class="logo-main logo-image">
+<div class="logo-container" style="align-items: center; margin-bottom: 50px;">
+<div class="prestart-modern-logo" aria-label="Tổ Buôn 247">
+<div class="prestart-logo-mark">TB</div>
+<div class="prestart-logo-text">TỔ BUÔN <span>247</span></div>
 <img alt="Tổ Buôn 24/7" class="main-logo-img" src="logo-main.png"/>
 </div>
 </div>
@@ -2657,8 +2769,9 @@ body,
 <div class="live-indicator"><div class="blink-dot"></div>TRỰC TIẾP</div>
 </div>
 </header>
+<div class="slide active blank-bg-slide" aria-label="Slide nền trống"></div>
 <div id="slide-container">
-<div class="slide active">
+<div class="slide">
 <div class="tb-slide">
 <div class="tb-panel" style="min-height:560px; display:flex; align-items:center;">
 <div style="width:62%; text-align:left; position:relative; z-index:2;">
@@ -2696,7 +2809,6 @@ body,
 <div class="slide">
 <div class="tb-slide">
 <div class="tb-panel">
-<div class="tb-kicker">MENTIMETER</div>
 <div class="tb-title" style="font-size: 46px !important;">NẾU LÀ CEO, <span class="gold">QUÝ VỊ CHỌN GÌ?</span></div>
 <div class="tb-grid" style="display:grid; grid-template-columns:minmax(0, 2.15fr) 0.85fr; gap:28px; align-items:stretch; margin-top:26px;">
 <div class="mentimeter-shell" style="width:100%; min-height:500px; padding:12px; display:flex; flex-direction:column;">
@@ -2952,8 +3064,9 @@ body,
         const knowledgeTickerText = "CSR không chỉ là từ thiện, mà là cách doanh nghiệp quản trị tác động tới khách hàng, người lao động, cộng đồng và môi trường &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Stakeholder theory nhắc rằng quyết định kinh doanh cần cân bằng lợi ích cổ đông với các bên liên quan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ESG: Environment, Social, Governance là khung nhìn rủi ro và trách nhiệm doanh nghiệp, không chỉ là khẩu hiệu truyền thông &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Minh bạch dữ liệu, cơ chế khiếu nại và khắc phục thiệt hại quan trọng không kém cam kết CSR &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GREENWASHING: Tuyên bố xanh nhưng thiếu bằng chứng có thể làm mất niềm tin người tiêu dùng";
         const briefNewsTickerText = "TIN VẮN: Bên cạnh tội danh Vi phạm quy định về kế toán gây hậu quả nghiêm trọng, Cục C01 Bộ Công an đang tập trung làm rõ nghi vấn sản xuất, buôn bán hàng giả của hệ thống Hoàng Hường. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TIN VẮN: Kết quả quan trắc chất lượng môi trường những năm qua cho thấy, tình trạng ô nhiễm môi trường không khí tại các CCN làng nghề tái chế như Văn Môn, Phong Khê, Ðại Bái, Châu Khê… trên địa bàn tỉnh Bắc Ninh rất nghiêm trọng. Nước thải tại các CCN hầu hết đều không được thu gom và xử lý dẫn đến nhiều chỉ tiêu phân tích vượt quy chuẩn Việt Nam nhiều lần &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TIN VẮN: Hàng loạt 'tổng kho' chốt đơn tiền tỷ bị triệt phá do tuồn hàng giả, bóp méo niềm tin thương mại điện tử &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TIN VẮN: EU AI Act có hiệu lực 01/08/2024; nghĩa vụ về hiểu biết AI và lệnh cấm một số thực hành AI bắt đầu áp dụng từ 02/02/2025";
         const complimentTickerText = "FACT: Nếu NEU có visual ranking, cô Loan vẫn đang giữ vị trí top đầu";
-        const newsTickerText = `${knowledgeTickerText} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;◆&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${briefNewsTickerText} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;◆&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${complimentTickerText}`;
-        const creditsTickerText = "ĐỘI NGŨ THỰC HIỆN TỔ BUÔN 24/7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TỔNG ĐẠO DIỄN: Nguyễn Quốc Cường &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KỸ THUẬT VIÊN HÌNH ẢNH: Vũ Hoàng Việt &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KỸ THUẬT VIÊN HÌNH ẢNH: Bùi Trần Tuấn Hưng &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CHUYÊN GIA KINH TẾ: Đặng Bùi Duy Hiến &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BIÊN TẬP VIÊN: Bùi Trần Hải Đăng &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRƯỞNG BAN HỌC THUẬT: Nguyễn Thị Kim Anh &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DIỄN VIÊN: Lê Quang Nghĩa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DIỄN VIÊN: Hồ Lan Nhi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DIỄN VIÊN: Nguyễn Anh Thư &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DIỄN VIÊN: Lê Đào Nguyên Huy &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  GIẢNG VIÊN QUẢN TRỊ KINH DOANH 1 XINH GÁI NHẤT HỆ MẶT TRỜI: Cô Lê Thị Loan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ";
+        const productionTickerText = "Sau nhiều vòng chỉnh sửa, nhóm đã thống nhất rằng phiên bản cuối cùng là phiên bản được gửi sau cùng. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nếu chương trình hôm nay có sai sót kỹ thuật, xin tạm thời quy về rủi ro vận hành chứ không phải sai lầm chiến lược. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TIN TỪ BÀN TRÀ ĐÁ: Lợi nhuận có thể đo bằng tiền, nhưng sự chỉn chu của một bài thuyết trình đôi khi được đo bằng số lần sửa file lúc nửa đêm. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BẢN TIN NHÓM: Tinh thần teamwork đang duy trì ổn định, dù lịch sử đặt tên file đã bắt đầu có dấu hiệu vượt kiểm soát. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Đạo đức kinh doanh hôm nay không nằm trên khẩu hiệu, mà nằm trong từng lựa chọn khiến người ra quyết định phải hơi đau đầu. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Thuật toán có thể tính giá rất nhanh, nhưng vẫn cần con người trả lời câu hỏi: như vậy có công bằng không? &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Một quyết định kinh doanh có thể làm hài lòng cổ đông, nhưng chưa chắc làm cộng đồng yên tâm. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nếu lợi nhuận là con số cuối báo cáo, thì đạo đức là câu hỏi còn ở lại sau khi báo cáo kết thúc.";
+        const newsTickerText = `${knowledgeTickerText} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;◆&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${briefNewsTickerText} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;◆&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${productionTickerText} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;◆&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${complimentTickerText}`;
+        const creditsTickerText = "ĐỘI NGŨ THỰC HIỆN TỔ BUÔN 24/7 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TỔNG ĐẠO DIỄN: Nguyễn Quốc Cường &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KỸ THUẬT VIÊN HÌNH ẢNH: Vũ Hoàng Việt &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KỸ THUẬT VIÊN HÌNH ẢNH: Bùi Trần Tuấn Hưng &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CHUYÊN GIA KINH TẾ: Đặng Bùi Duy Hiến &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BIÊN TẬP VIÊN: Bùi Trần Hải Đăng &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TRƯỞNG BAN HỌC THUẬT: Nguyễn Thị Kim Anh &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DIỄN VIÊN TRONG VAI QUANG LINH VLOG: Lê Quang Nghĩa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DIỄN VIÊN TRONG VAI HẰNG DU MỤC: Hồ Lan Nhi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CHUYÊN GIA KINH TẾ: Nguyễn Anh Thư &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DIỄN VIÊN TRONG VAI NHÂN VIÊN CÔNG TY CHỊ EM RỌT: Lê Đào Nguyên Huy &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  GIẢNG VIÊN QUẢN TRỊ KINH DOANH 1 XINH GÁI NHẤT HỆ MẶT TRỜI: Cô Lê Thị Loan&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;★&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ";
         
         const formatTicker = (text) => {
             let result = '';
@@ -2964,14 +3077,14 @@ body,
         };
 
         const profiles = {
-            'Digit1': { title: 'NGƯỜI DÂN', name: 'NGUYỄN THỊ KIM ANH' },
+            'Digit8': { title: 'NGƯỜI DÂN', name: 'Bà Lò Kim Anh' },
             'Digit2': { title: 'CHUYÊN GIA KINH TẾ', name: 'ĐẶNG BÙI DUY HIẾN' },
-            'Digit3': { title: 'TRƯỞNG BAN HỌC THUẬT', name: 'NGUYỄN THỊ KIM ANH' },
-            'Digit4': { title: 'DIỄN VIÊN', name: 'LÊ QUANG NGHĨA' },
+            'Digit4': { title: 'TRƯỞNG BAN HỌC THUẬT', name: 'NGUYỄN THỊ KIM ANH' },
+            'Digit6': { title: 'DIỄN VIÊN', name: 'LÊ QUANG NGHĨA' },
             'Digit5': { title: 'DIỄN VIÊN', name: 'HỒ LAN NHI' },
-            'Digit6': { title: 'DIỄN VIÊN', name: 'NGUYỄN ANH THƯ' },
+            'Digit3': { title: 'CHUYÊN GIA KINH TẾ', name: 'NGUYỄN ANH THƯ' },
             'Digit7': { title: 'DIỄN VIÊN', name: 'LÊ ĐÀO NGUYÊN HUY' },
-            'Digit8': { title: 'BIÊN TẬP VIÊN', name: 'BÙI TRẦN HẢI ĐĂNG' },
+            'Digit1': { title: 'BIÊN TẬP VIÊN', name: 'BÙI TRẦN HẢI ĐĂNG' },
             'Digit9': { title: 'KỸ THUẬT VIÊN HÌNH ẢNH', name: 'VŨ HOÀNG VIỆT' },
             'KeyQ': { title: 'TỔNG ĐẠO DIỄN', name: 'NGUYỄN QUỐC CƯỜNG' },
             'KeyW': { title: 'KỸ THUẬT VIÊN HÌNH ẢNH', name: 'BÙI TRẦN TUẤN HƯNG' },
@@ -2980,9 +3093,10 @@ body,
 
         // Headlines tạm thời giữ nguyên theo code gốc của bạn
         const headlines = [
+            "",
             "Tổ Buôn 24/7 - Khi kinh doanh không chỉ là kiếm tiền",
             "Giá cứu người trong đêm mưa lũ",
-            "Mentimeter: Nếu là CEO, quý vị chọn gì?",
+            "Nếu là CEO, quý vị chọn gì?",
             "Ai đang bị ảnh hưởng?",
             "Bốn lăng kính đạo đức",
             "Không có lựa chọn sạch tuyệt đối",
@@ -3084,7 +3198,7 @@ body,
             setTimeout(() => { 
                 introScreen.style.display = 'none'; mainLayout.style.display = 'flex'; mainLayout.style.opacity = '1'; 
                 tickerElement.style.animation = 'none'; void tickerElement.offsetWidth;
-                tickerElement.style.animation = 'ticker 2000s linear infinite';
+                tickerElement.style.animation = 'ticker 3600s linear infinite';
             }, 300);
         });
 
@@ -3093,7 +3207,7 @@ body,
             setTimeout(() => { 
                 introScreen.style.display = 'none'; mainLayout.style.display = 'flex'; mainLayout.style.opacity = '1'; 
                 tickerElement.style.animation = 'none'; void tickerElement.offsetWidth;
-                tickerElement.style.animation = 'ticker 2000s linear infinite';
+                tickerElement.style.animation = 'ticker 3600s linear infinite';
             }, 1000);
         };
 
@@ -3167,7 +3281,7 @@ body,
                 
                 if (dynamicHeadline) { dynamicHeadline.innerText = headlines[currentSlide] || "Talkshow Tổ Buôn 24/7"; }
                 
-                if (currentSlide === 2) { window.dispatchEvent(new Event('resize')); }
+                if (currentSlide === 3) { window.dispatchEvent(new Event('resize')); }
                 
                 const currentSlideEl = slides[currentSlide];
                 
@@ -3215,7 +3329,7 @@ body,
                         tickerElement.innerHTML = formatTicker(newsTickerText); 
                         tickerElement.style.animation = 'none'; 
                         void tickerElement.offsetWidth; 
-                        tickerElement.style.animation = 'ticker 2000s linear infinite'; 
+                        tickerElement.style.animation = 'ticker 3600s linear infinite'; 
                         isCreditRoll = false; 
                     }
                 }
